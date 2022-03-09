@@ -1,8 +1,6 @@
                                  #1st Program
 
-print(“Question1”)
-
-print('Question1')
+ print('Question1')
 
 input_string = 'Python is a case sensitive language'
 
