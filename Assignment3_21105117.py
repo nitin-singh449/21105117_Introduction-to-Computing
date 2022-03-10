@@ -49,42 +49,73 @@ for key,value in dict.items():
 
 print("Question 2 ")
 
-year = int(input("Input a year: "))
 
-if (year % 400 == 0):
-    leap_year = True
-elif (year % 100 == 0):
-    leap_year = False
-elif (year % 4 == 0):
-    leap_year = True
-else:
-    leap_year = False
+# Taking date from user.
+date = int(input("Enter the date: "))
+month = int(input("Enter the month: "))
+year = int(input("Enter the year: "))
+print()
 
-month = int(input("Input a month [1-12]: "))
+# Condition for valid dates.
+check_1 = (month in (1,3,5,7,8,10,12) and (1 <= date <= 31))
+check_2 = (month in (4,6,9,11) and (1 <= date <= 30))
+check_3 = ((year % 4) == 0 and month == 2 and (1 <= date <= 29)) or ((year % 4) != 0 and month == 2 and (1 <= date <= 29))
 
-if month in (1, 3, 5, 7, 8, 10, 12):
-    month_length = 31
-elif month == 2:
-    if leap_year:
-        month_length = 29
+# Calculating next date.
+if (check_1 or check_2 or check_3) and (1800 <= year <= 2025): # checking whether date is valid or not. 
+    
+    # calculating next date for months having 31 days.
+    if month in (1,3,5,7,8,10):
+        if date < 31:
+            date += 1
+        else:
+            date = 1
+            month += 1
+
+    # Calculating next date for month having 30 days.
+    elif month in (4,6,9,11):
+        if date < 30:
+            date += 1
+        else:
+            date = 1
+            month += 1
+
+    # Calculating next date for feb because it have only 28 days.
+    elif month == 2:
+
+        # calculating next date in case of leap year.
+        if year % 4 == 0:
+            if date < 29:
+                date += 1
+            else:
+                date = 1
+                month += 1
+        else:
+            if date < 28:
+                date += 1
+            else:
+                date = 1
+                month += 1
+
+    # Calculating next date for dec.
     else:
-        month_length = 28
-else:
-    month_length = 30
-
-
-day = int(input("Input a day [1-31]: "))
-
-if day < month_length:
-    day += 1
-else:
-    day = 1
-    if month == 12:
-        month = 1
-        year += 1
+        if date < 31:
+            date += 1
+        else:
+            date = 1
+            month = 1
+            year += 1
+    
+     # Printing next date.
+    if date == 1 and month == 1 and year == 2026:
+        print("Next date is out of range.")
     else:
-        month += 1
-print("The next date is [yyyy-mm-dd] %d-%d-%d." % (year, month, day))
+        print(f"Next day is: {date}/{month}/{year}")
+
+else:
+    # printing if date is not valid.
+    print("Invalid Date.")
+
 
                                #3rd Program
 
@@ -111,16 +142,34 @@ giv_table = [ ["A+","Outstanding",10],
                 ["C+","Average",6],
                 ["C","Below Average",5],
                 ["D","Poor",4] ]
-while True:                                                                                                         #loop for making sure the user inputs the value between 4 and 10
-    grade = eval(input("Enter the grade point of the student: "))
-    if 4 <= grade <= 10:
-        break
+
+# prompting user for entering the grade.
+grade_num = int(input("Enter the grade number: "))
+print()
+
+# checking grade is valid or not.
+if 4 <= grade_num <= 10:
+
+    # Printing the result depending upon the input grade.
+    if grade_num == 10:
+        print("Your grade is 'A+' and Outstanding Performance.")
+    elif grade_num == 9:
+        print("Your grade is 'A' and Excellent Performance.")
+    elif grade_num == 8:
+        print("Your grade is 'B+' and Very Good Performance.")
+    elif grade_num == 7:
+        print("Your grade is 'B' and Good Performance.")
+    elif grade_num == 6:
+        print("Your grade is 'C+' and Average Performance.")
+    elif grade_num == 5:
+        print("Your grade is 'C' and Below Average Performance.")
     else:
-        print("The grade point must be between 4 and 10")
-for i in giv_table:                                                                                               #i is for iterating through the lists in the list and j is for iterating through the elements of each list
-    for j in i:
-        if j == int(grade):
-            print("Your Grade is '%s' and %s Performance" % (i[0],i[1]))
+        print("Your grade is 'D' and Poor Performance.")
+
+else:
+
+    # Printing the error msg if grade is invalid.
+    print("Invalid grade.")
 
                               #5th Program
 
